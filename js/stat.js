@@ -10,15 +10,14 @@ var BAR_WIDTH = 40;
 var BAR_HEIGHT = 150;
 var BETWEEN_BAR = 50;
 
-
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-var renderBar = function (ctx, x, y, widthBar, heightBar, color) {
+var renderBar = function (ctx, x, heightBar, color) {
   ctx.fillStyle = color;
-  ctx.fillRect(x, y, widthBar, heightBar);
+  ctx.fillRect(x, CLOUD_HEIGHT - (2 * GAP + FONT_GAP), BAR_WIDTH, heightBar);
 };
 
 var getMaxElement = function (arr) {
@@ -33,10 +32,13 @@ var getMaxElement = function (arr) {
   return maxElement;
 };
 
-var randSaturation = function () {
-  return Math.random().toFixed(3);
+var randSaturation = function (namePlayer) {
+  var color = 'rgba(0, 0, 255, ' + Math.random().toFixed(3) + ')';
+  if (namePlayer === 'Вы') {
+    color = 'rgba(255, 0, 0, 1)';
+  }
+  return color;
 };
-
 
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
@@ -46,6 +48,7 @@ window.renderStatistics = function (ctx, players, times) {
   var message = 'Ура вы победили!\nСписок результатов:'; // текст сообщения на облаке
   var messageArr = message.split('\n'); // массив, полученный разбиением строки
   var maxTime = getMaxElement(times);
+  var colorBar;
 
   ctx.fillStyle = '#000';
 
@@ -55,16 +58,10 @@ window.renderStatistics = function (ctx, players, times) {
     ctx.fillText(messageArr[i], CLOUD_X + 2 * GAP, CLOUD_Y + 2 * GAP * (i + 1));
   }
 
-  var colorBar;
   for (i = 0; i < players.length; i++) {
-    colorBar = 'rgba(0, 0, 255, ' + randSaturation() + ')';
+    colorBar = randSaturation(players[i]);
 
-    if (players[i] === 'Вы') {
-      colorBar = 'rgba(255, 0, 0, 1)';
-    }
-
-    renderBar(ctx, CLOUD_X + marginLeft + (BAR_WIDTH + BETWEEN_BAR) * i, CLOUD_HEIGHT - (2 * GAP + FONT_GAP), BAR_WIDTH, -((BAR_HEIGHT * times[i]) / maxTime), colorBar);
-    // ctx.fillRect(CLOUD_X + marginLeft + (BAR_WIDTH + BETWEEN_BAR) * i, CLOUD_HEIGHT - (2 * GAP + FONT_GAP), BAR_WIDTH, -((BAR_HEIGHT * times[i]) / maxTime));
+    renderBar(ctx, CLOUD_X + marginLeft + (BAR_WIDTH + BETWEEN_BAR) * i, -((BAR_HEIGHT * times[i]) / maxTime), colorBar);
 
     ctx.fillStyle = '#000';
 
