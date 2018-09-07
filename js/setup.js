@@ -1,7 +1,7 @@
 'use strict';
 
-var wizardNAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-var wizardSURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
+var wizardNames = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
+var wizardSurnames = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var coatColor = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var eyesColor = ['black', 'red', 'blue', 'yellow', 'green'];
 var wizards = [];
@@ -24,7 +24,7 @@ function randomElement(array) {
 // создание массива объектов, которые описывают похожих персонажей
 for (var i = 0; i <= 3; i++) {
   wizards.push({
-    name: randomElement(wizardNAMES) + ' ' + randomElement(wizardSURNAMES),
+    name: randomElement(wizardNames) + ' ' + randomElement(wizardSurnames),
     coatColor: randomElement(coatColor),
     eyesColor: randomElement(eyesColor.length)});
 }
