@@ -63,8 +63,6 @@ var userDialogWizardCoat = userDialog.querySelector('.setup-wizard').querySelect
 var userDialogWizardEyes = userDialog.querySelector('.setup-wizard').querySelector('.wizard-eyes');
 // DOM-объект (цвет фаербола)
 var userDialogFireball = userDialog.querySelector('.setup-fireball-wrap');
-// DOM-объект со скрытыми INPUT для цвета мантии и цвета глаз
-var userDialogAppearance = userDialog.querySelector('.setup-wizard-appearance');
 
 // ф-ция, которая вызывается в обработчике по нажатию ESC
 var onPopupEscPress = function (evt) {
@@ -104,23 +102,20 @@ userDialogClose.addEventListener('keydown', function (evt) {
 });
 
 userDialogWizardCoat.addEventListener('click', function () {
-  userDialogWizardCoat.style.fill = randomElement(coatColor);
-  userDialogAppearance.querySelectorAll('input')[0].value = userDialogWizardCoat.style.fill;
+  var rand = randomElement(coatColor);
+  userDialogWizardCoat.style.fill = rand;
+  document.getElementsByName('coat-color')[0].value = rand;
 });
 
 
 userDialogWizardEyes.addEventListener('click', function () {
-  userDialogWizardEyes.style.fill = randomElement(eyesColor);
-  userDialogAppearance.querySelectorAll('input')[1].value = userDialogWizardEyes.style.fill;
+  var rand = randomElement(eyesColor);
+  userDialogWizardEyes.style.fill = rand;
+  document.getElementsByName('eyes-color')[0].value = rand;
 });
 
 userDialogFireball.addEventListener('click', function () {
-  userDialogFireball.querySelector('input').value = randomElement(fireballColor);
-  userDialogFireball.style.background = userDialogFireball.querySelector('input').value;
-
+  var rand = randomElement(fireballColor);
+  userDialogFireball.querySelector('input').value = rand;
+  userDialogFireball.style.background = rand;
 });
-
-// userDialog.addEventListener('submit', function () {
-//   userDialogFireball.style.background = randomElement(fireballColor);
-//   userDialogFireball.querySelector('input').value = userDialogFireball.background;
-// });
