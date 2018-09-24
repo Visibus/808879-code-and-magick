@@ -14,24 +14,24 @@
       return array[rand];
     }
   };
-  var wizards = [];
+  // var wizards = [];
 
   // функция создания DOM-элемента на основе JS-объекта
   var renderWizard = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
     wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
+    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
     return wizardElement;
   };
 
-  // создание массива объектов, которые описывают похожих персонажей
-  for (var i = 0; i <= 3; i++) {
-    wizards.push({
-      name: window.setup.randomElement(window.setup.wizardNames) + ' ' + window.setup.randomElement(window.setup.wizardNames),
-      coatColor: window.setup.randomElement(window.setup.coatColor),
-      eyesColor: window.setup.randomElement(window.setup.eyesColor)});
-  }
+  // // создание массива объектов, которые описывают похожих персонажей
+  // for (var i = 0; i <= 3; i++) {
+  //   wizards.push({
+  //     name: window.setup.randomElement(window.setup.wizardNames) + ' ' + window.setup.randomElement(window.setup.wizardNames),
+  //     coatColor: window.setup.randomElement(window.setup.coatColor),
+  //     eyesColor: window.setup.randomElement(window.setup.eyesColor)});
+  // }
 
 
   // блок, куда будут вставлены объекты (похожие персонажи - wizards)
@@ -41,14 +41,40 @@
   // блок из шаблона, на основе которого будут добавлены элементы
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
-  // отрисовка DOM-объектов через DocumentFragment
-  var fragment = document.createDocumentFragment();
+  // // отрисовка DOM-объектов через DocumentFragment
+  // var fragment = document.createDocumentFragment();
 
-  for (i = 0; i < wizards.length; i++) {
-    fragment.appendChild(renderWizard(wizards[i]));
-  }
-  similarListElement.appendChild(fragment);
+  // for (i = 0; i < wizards.length; i++) {
+  //   fragment.appendChild(renderWizard(wizards[i]));
+  // }
+  // similarListElement.appendChild(fragment);
 
-  // показываем созданный блок
-  userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  // // показываем созданный блок
+  // userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+  var successHandler = function (wizards) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < 4; i++) {
+      fragment.appendChild(renderWizard(wizards[i]));
+    }
+    similarListElement.appendChild(fragment);
+
+    userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('beforeEnd', node);
+  };
+
+  window.backend.load(successHandler, errorHandler);
+
+
 })();

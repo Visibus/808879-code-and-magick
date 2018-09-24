@@ -124,4 +124,28 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
+  var formUserDialog = userDialog.querySelector('.setup-wizard-form');
+  formUserDialog.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(formUserDialog), successHandler, errorHandler);
+    evt.preventDefault();
+  });
+
+  var successHandler = function () {
+    userDialog.classList.add('hidden');
+    var errorElem = document.querySelector('.error');
+    document.removeChild(errorElem);
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.classList.add('error');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterBegin', node);
+  };
 })();
