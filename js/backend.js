@@ -2,7 +2,7 @@
 
 (function () {
   var URL_GET = 'https://js.dump.academy/code-and-magick/data';
-  var URL_POST = 'https://js.dump.academy/code-and-magick11';
+  var URL_POST = 'https://js.dump.academy/code-and-magick';
 
   window.backend = {
     load: function (onLoad, onError) {
