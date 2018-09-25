@@ -12,7 +12,18 @@
     randomElement: function (array) {
       var rand = Math.floor(Math.random() * array.length);
       return array[rand];
+    },
+    errorHandler: function (errorMessage) {
+      var node = document.createElement('div');
+      node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+      node.style.position = 'absolute';
+      node.style.left = 0;
+      node.style.right = 0;
+      node.style.fontSize = '30px';
+      node.textContent = errorMessage;
+      document.body.insertAdjacentElement('afterBegin', node);
     }
+
   };
   // var wizards = [];
 
@@ -62,18 +73,7 @@
     userDialog.querySelector('.setup-similar').classList.remove('hidden');
   };
 
-  var errorHandler = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('beforeEnd', node);
-  };
-
+  var errorHandler = window.setup.errorHandler;
   window.backend.load(successHandler, errorHandler);
 
 
